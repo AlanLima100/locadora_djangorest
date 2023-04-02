@@ -33,7 +33,6 @@ class Filme(models.Model):
 
 class Locacao(models.Model):
     
-
     usuario = models.ForeignKey(Cadastro, on_delete=models.CASCADE)
     locou = models.ManyToManyField(Filme, blank=True)
     data_hora_locacao = models.DateTimeField(default=datetime.now, editable=False, verbose_name="Data e hora da locação")

@@ -1,14 +1,38 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from app.models import Endereco, Cadastro
-from app.serializers import EnderecoSeializer,CadastroSeializer
-# Create your views here.
+from django_filters import rest_framework as filters
+from rest_framework import viewsets 
+from app.serializers import EnderecoSerializer,CadastroSerializer, FilmeSerializer, LocacaoSerializer, AvaliacaoSerializer, DevolucaoSerializer
 
-class EnderecoViewSets(viewsets.ModelViewSet):
+from app.models import Endereco, Cadastro, Filme, Locacao, Avaliacao, Devolucao
+
+class EnderecoViewSet(viewsets.ModelViewSet):
     queryset = Endereco.objects.all()
-    serializer_class = EnderecoSeializer
+    serializer_class = EnderecoSerializer
 
 
-class CadastroViewSets(viewsets.ModelViewSet):
+class CadastroViewSet(viewsets.ModelViewSet):
     queryset = Cadastro.objects.all()
-    serializer_class = CadastroSeializer
+    serializer_class = CadastroSerializer
+
+
+class FilmeViewSet(viewsets.ModelViewSet):
+    queryset = Filme.objects.all()
+    serializer_class = FilmeSerializer
+
+
+class LocacaoViewSet(viewsets.ModelViewSet):
+    queryset = Locacao.objects.all()
+    serializer_class = LocacaoSerializer
+    filterset_fields = {
+        'data_hora_locacao': ['exact', 'gte', 'lte'],
+    }
+    filter_backends = [filters.DjangoFilterBackend]
+
+
+class AvaliacaoViewSet(viewsets.ModelViewSet):
+    queryset = Avaliacao.objects.all()
+    serializer_class = AvaliacaoSerializer
+
+
+class DevolucaoViewSet(viewsets.ModelViewSet):
+    queryset = Devolucao.objects.all()
+    serializer_class = DevolucaoSerializer

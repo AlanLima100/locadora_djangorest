@@ -2,32 +2,37 @@ from rest_framework import serializers #importando o serializers que é como se 
 from app.models import Endereco, Cadastro, Filme, Locacao, Avaliacao, Devolucao
 
 
-class EnderecoSeializer(serializers.ModelSerializer):
+class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endereco
-        fields = ['rua', 'numero_rua', 'bairro', 'cidade', 'cep']
+        fields = ['id','rua', 'numero_rua', 'bairro', 'cidade', 'cep']
 
 
-class CadastroSeializer(serializers.ModelSerializer):
+class CadastroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cadastro
-        fields = ['nome', 'sobrenome', 'data_nascimento', 'telefone', 'email', 'cpf', 'endereco']
+        fields = ['id','nome', 'sobrenome', 'data_nascimento', 'telefone', 'email', 'cpf', 'endereco']
 
 
-# class EnderecoSeializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Filme
+class FilmeSerializer(serializers.ModelSerializer):
+    queryset = Filme.objects.all()
+    class Meta:
+        model = Filme
+        fields = ['id','nome', 'ano', 'genero', 'sinopse', 'sensura', 'avaliacoes']
 
 
-# class EnderecoSeializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Locacao
+class LocacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Locacao
+        fields = ['id','usuario', 'locou', 'data_hora_locacao']
 
-# class EnderecoSeializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Avaliacao, Devolucao
+class AvaliacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Avaliacao
+        fields = ['id','nota', 'comentario']
 
 
-# class EnderecoSeializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Devolucao
+class DevolucaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Devolucao
+        fields = ['id','filme_devolucao', 'devolucao_avaliacao']
